@@ -4,11 +4,15 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import {rootReducer, RootState} from "./reducers/index";
+import { rootReducer, RootState } from "./reducers/index";
 import { Action } from "./actions/index";
-import {devToolsEnhancer} from "redux-devtools-extension";
+import { devToolsEnhancer } from "redux-devtools-extension";
+import "./index.css";
 
-const store = createStore<RootState, Action, any, null>(rootReducer, devToolsEnhancer({"trace": true}));
+const store = createStore<RootState, Action, any, null>(
+  rootReducer,
+  devToolsEnhancer({ trace: true })
+);
 
 ReactDOM.render(
   <Provider store={store}>

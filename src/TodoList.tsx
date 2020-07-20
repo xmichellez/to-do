@@ -4,6 +4,7 @@ import { ToggleTodo } from "./actions";
 import { connect, useDispatch } from "react-redux";
 import { RootState } from "./reducers";
 import { VISIBILITY_FILTERS, SORT } from "./constants";
+import { Table } from "react-bootstrap";
 
 interface Props {
   todos: Todo[];
@@ -41,25 +42,31 @@ export const TodoList: React.FC<Props> = ({ todos, filter, sort }) => {
   const sorted = filtered.sort(sorting);
 
   return (
-    <ul style={{ listStyleType: "none" }}>
-      {sorted.map((todo) => (
-        <li key={todo.id}>
-          <label
-            style={{
-              textDecoration: todo.complete ? "line-through" : undefined,
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={todo.complete}
-              onChange={() => dispatch(ToggleTodo(todo.id))}
-            />{" "}
+    <Table bordered hover>
+      <tbody>
+        {sorted.map((todo) => (
+          <tr key={todo.id}>
+            <td>
+              <input
+                type="checkbox"
+                checked={todo.complete}
+                onChange={() => dispatch(ToggleTodo(todo.id))}
+              />
+            </td>
             {/* just to be able to see for now */}
-            {todo.text} {todo.id} {todo.date}
-          </label>
-        </li>
-      ))}
-    </ul>
+            <td>
+              <p
+                style={{
+                  textDecoration: todo.complete ? "line-through" : undefined,
+                }}
+              >
+                {todo.text} {todo.id} {todo.date}
+              </p>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 
